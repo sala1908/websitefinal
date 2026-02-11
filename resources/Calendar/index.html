@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lab 4 - Calendar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./resources/css/style.css">
+  </head>
+  <body>
+    <div class="row">
+        <div class="col-2">
+            <div class="custom-container">
+                <button 
+                    class="btn btn-primary mt-3"
+                    data-bs-toggle="modal"
+                    data-bs-target="#event_modal"
+                    >Create Event
+                </button>
+            </div>
+        </div>
+        <div class="col">
+            <div class="container-md container-fluid py-4 h-100">
+                <div id="calendar" class="row h-100">
+                    <div class="col-sm m-1 bg-white rounded px-1 px-md-2" id="sunday">
+                        <div class="h6 text-center position-relative py-2 day">
+                            Sunday
+                        </div>
+                    </div>
+                    <div class="col-sm m-1 bg-white rounded px-1 px-md-2" id="monday">
+                        <div class="h6 text-center position-relative py-2 day">
+                            Monday
+                        </div>
+                    </div>
+                    <div class="col-sm m-1 bg-white rounded px-1 px-md-2" id="tuesday">
+                        <div class="h6 text-center position-relative py-2 day">
+                            Tuesday
+                        </div>
+                    </div>
+                    <div class="col-sm m-1 bg-white rounded px-1 px-md-2" id="wednesday">
+                        <div class="h6 text-center position-relative py-2 day">
+                            Wednesday
+                        </div>
+                    </div>
+                    <div class="col-sm m-1 bg-white rounded px-1 px-md-2" id="thursday">
+                        <div class="h6 text-center position-relative py-2 day">
+                            Thursday
+                        </div>
+                    </div>
+                    <div class="col-sm m-1 bg-white rounded px-1 px-md-2" id="friday">
+                        <div class="h6 text-center position-relative py-2 day">
+                            Friday
+                        </div>
+                    </div>
+                    <div class="col-sm m-1 bg-white rounded px-1 px-md-2" id="saturday">
+                        <div class="h6 text-center position-relative py-2 day">
+                            Saturday
+                        </div>
+                    </div>
+                </div>        
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="event_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="event_form" novalidate>
+              <div class="mb-3">
+                <label for="event_name" class="form-label">Event Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="event_name" required minlength="1" maxlength="100">
+                <div class="invalid-feedback">Event name is required.</div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="event_weekday" class="form-label">Weekday <span class="text-danger">*</span></label>
+                <select class="form-select" id="event_weekday" required>
+                  <option value="">Select a day</option>
+                  <option value="Sunday">Sunday</option>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                </select>
+                <div class="invalid-feedback">Please select a weekday.</div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="event_category" class="form-label">Category <span class="text-danger">*</span></label>
+                <select class="form-select" id="event_category" required>
+                  <option value="">Select a category</option>
+                  <option value="work">Work</option>
+                  <option value="personal">Personal</option>
+                  <option value="social">Social</option>
+                  
+                </select>
+                <div class="invalid-feedback">Category field is required.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="event_time" class="form-label">Time <span class="text-danger">*</span></label>
+                <input type="time" class="form-control" id="event_time" required>
+                <div class="invalid-feedback">Time is required.</div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="event_modality" class="form-label">Event Modality <span class="text-danger">*</span></label>
+                <select class="form-select" id="event_modality" required>
+                  <option value="">Select modality</option>
+                  <option value="in-person">In-Person</option>
+                  <option value="remote">Remote</option>
+                </select>
+                <div class="invalid-feedback">Please select event modality.</div>
+              </div>
+              
+              <div class="mb-3" id="location_field" style="display: none;">
+                <label for="event_location" class="form-label">Location <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="event_location" minlength="1" maxlength="200">
+                <div class="invalid-feedback">Location is required for in-person events.</div>
+              </div>
+              
+              <div class="mb-3" id="remote_url_field" style="display: none;">
+                <label for="event_remote_url" class="form-label">Remote URL <span class="text-danger">*</span></label>
+                <input type="url" class="form-control" id="event_remote_url" placeholder="Enter meeting URL (e.g., Zoom, MS Teams link)">
+                <div class="invalid-feedback">Please enter a valid URL for remote events.</div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="event_attendees" class="form-label">Attendees <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="event_attendees" required placeholder="Enter attendee names separated by commas">
+                <div class="invalid-feedback">Attendees field is required.</div>
+              </div>
+              <input type="hidden" id="event_index" value="">
+
+              
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="button" onclick="saveEvent()">
+            Save Event
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="./resources/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+      // Handle Event Modality change to show/hide conditional fields
+      const eventModalitySelect = document.getElementById('event_modality');
+      const locationField = document.getElementById('location_field');
+      const remoteUrlField = document.getElementById('remote_url_field');
+      const eventLocationInput = document.getElementById('event_location');
+      const eventRemoteUrlInput = document.getElementById('event_remote_url');
+
+      eventModalitySelect.addEventListener('change', function() {
+        if (this.value === 'in-person') {
+          locationField.style.display = 'block';
+          remoteUrlField.style.display = 'none';
+          eventLocationInput.required = true;
+          eventRemoteUrlInput.required = false;
+          eventRemoteUrlInput.classList.remove('is-invalid');
+        } else if (this.value === 'remote') {
+          locationField.style.display = 'none';
+          remoteUrlField.style.display = 'block';
+          eventLocationInput.required = false;
+          eventLocationInput.classList.remove('is-invalid');
+          eventRemoteUrlInput.required = true;
+        } else {
+          locationField.style.display = 'none';
+          remoteUrlField.style.display = 'none';
+          eventLocationInput.required = false;
+          eventRemoteUrlInput.required = false;
+        }
+      });
+
+      // Handle form submission with validation
+      const eventForm = document.getElementById('event_form');
+      eventForm.addEventListener('submit', function(event) {
+        // Remove previous validation states
+        Array.from(eventForm.elements).forEach(element => {
+          element.classList.remove('is-invalid', 'is-valid');
+        });
+
+        // Check form validity
+        if (!eventForm.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        } else {
+          // Add visual feedback for valid form
+          Array.from(eventForm.elements).forEach(element => {
+            if (element.tagName !== 'BUTTON' && element.offsetParent !== null) {
+              element.classList.add('is-valid');
+            }
+          });
+        }
+
+        eventForm.classList.add('was-validated');
+      });
+
+      // Validate Remote URL format
+      eventRemoteUrlInput.addEventListener('blur', function() {
+        if (this.value && this.required) {
+          const urlPattern = /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/;
+          if (!urlPattern.test(this.value)) {
+            this.classList.add('is-invalid');
+          } else {
+            this.classList.remove('is-invalid');
+            this.classList.add('is-valid');
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

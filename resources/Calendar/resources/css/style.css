@@ -1,0 +1,40 @@
+h1{
+    text-align: center;
+    padding-top: 2%;
+}
+body {
+    height: 100%;
+    background-color: #f2f2f2;
+  }
+  
+  .event:hover {
+    cursor: pointer;
+  }
+  
+  .hidden {
+    visibility: hidden;
+    height: 0;
+  }
+  
+  #calendar {
+    height: 100vh !important;
+  }
+
+.custom-container {
+    width: 100%;
+    padding: 20%;
+}
+.event-work {
+    background-color: #e3f2fd;  /* Light blue */
+    border-left: 5px solid #1976d2;
+}
+
+.event-personal {
+    background-color: #e8f5e9;  /* Light green */
+    border-left: 5px solid #388e3c;
+}
+
+.event-social {
+    background-color: #fce4ec;  /* Light pink */
+    border-left: 5px solid #c2185b;
+}
